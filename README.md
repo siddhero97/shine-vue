@@ -1,6 +1,6 @@
 # Tracker2
 
-[![GitHub license](https://img.shields.io/github/license/Youth-Unlimited/tracker.svg)](LICENSE.md)
+[![GitHub License](https://img.shields.io/github/license/dwong-brighter/tracker2)](LICENSE.md)
 
 See each directory's README.md for more information.
 
