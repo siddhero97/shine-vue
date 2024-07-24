@@ -1,0 +1,74 @@
+version: "3.9"
+# This compose file is for development use. Use stack.yml for production.
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER_FILE: /run/secrets/pg_username
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_password
+      POSTGRES_DB_FILE: /run/secrets/pg_db
+    shm_size: 256MB
+    networks:
+      - dbnet
+    ports:
+      - "5432:5432" # Expose for Development
+    secrets:
+      - pg_username
+      - pg_password
+      - pg_db
+
+  frontend:
+    build:
+      context: ./tracker-client
+      args:
+          - VUE_APP_API_BASE_URL
+    image: tracker-client:dev
+    ports:
+      - "8080:80"
+    networks:
+      - dbnet
+
+  api:
+    build: ./tracker-sequelize
+    image: tracker-sequelize:dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - dbnet
+    secrets:
+      - api_env
+
+  pgadmin:
+    # Profiles can be used since Compose file v3.9. See https://docs.docker.com/compose/profiles/.
+    profiles:
+      - pgadmin
+    # For container options, see https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+    image: dpage/pgadmin4:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    networks:
+      - dbnet
+    environment:
+      # You can override these defaults with an .env file in this directory.
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-"pgadmin@example.com"}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-"sekret"}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT:-80}
+      PGADMIN_DISABLE_POSTFIX: ${PGADMIN_DISABLE_POSTFIX:-1}
+
+networks:
+  dbnet:
+
+secrets:
+  pg_username:
+    file: ./secrets/pg_username
+  pg_password:
+    file: ./secrets/pg_password
+  pg_db:
+    file: ./secrets/pg_db
+  api_env:
+    file: ./secrets/tracker-sequelize.env

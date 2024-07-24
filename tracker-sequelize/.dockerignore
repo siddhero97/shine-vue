@@ -1,0 +1,5 @@
+.git
+.vscode
+node_modules
+src/pre-start/env/*.env
+*.log

@@ -1,0 +1,23 @@
+#cloud-config
+users:
+  - name: deploy
+    ssh-authorized-keys:
+      - # Add contents of your OpenSSH public key here.
+    groups: docker
+    shell: /bin/bash
+
+  - name: yuadmin
+    ssh-authorized-keys:
+      - # Add contents of your OpenSSH public key here.
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
+
+write_files:
+  - path: /home/deploy/README
+    content: |
+      Current deployment procedure can be found in the source DEPLOYING.md.
+      A copy with additional notes is at: https://docs.google.com/document/d/1tX1l67ijvYEZvvdoVHluxV4yxdgOn1PjjdiVs6LTqlQ/edit?usp=sharing
+# Uncomment if you do not want admins to ssh in as root.
+# runcmd:
+#   - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config

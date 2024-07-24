@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER_FILE: /run/secrets/pg_username
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_password
+      POSTGRES_DB_FILE: /run/secrets/pg_db
+    shm_size: 256MB
+    networks:
+      - dbnet
+    secrets:
+      - pg_username
+      - pg_password
+      - pg_db
+
+  frontend:
+    build:
+      context: ./tracker-client
+      args:
+          - VUE_APP_API_BASE_URL
+    image: tracker-client:prod
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    networks:
+      - dbnet
+
+  api:
+    build: ./tracker-sequelize
+    image: tracker-sequelize:prod
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - db
+    networks:
+      - dbnet
+    secrets:
+      - api_env
+
+networks:
+  dbnet:
+    attachable: true # Allow interactive container to attach for maintenance
+
+# Deployment Secrets are added separately.
+secrets:
+  pg_username:
+    external: true
+  pg_password:
+    external: true
+  pg_db:
+    external: true
+  api_env:
+    external: true

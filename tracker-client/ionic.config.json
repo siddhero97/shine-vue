@@ -1,0 +1,7 @@
+{
+  "name": "tracker-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

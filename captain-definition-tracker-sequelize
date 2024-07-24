@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 2,
+  "dockerfileLines": [
+    "FROM node:14-slim",
+    "USER node",
+    "RUN mkdir -p /home/node/app",
+    "WORKDIR /home/node/app",
+    "COPY --chown=node ./tracker-sequelize/package*.json ./",
+    "RUN npm install",
+    "COPY --chown=node ./tracker-sequelize/ .",
+    "RUN touch ./src/pre-start/env/production.env",
+    "RUN npm run build",
+    "ENV HOST=0.0.0.0 PORT=3000",
+    "CMD [ \"npm\", \"start\" ]"
+  ]
+}
