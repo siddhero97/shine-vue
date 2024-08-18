@@ -38,7 +38,7 @@ module.exports = {
     let users = [
       { displayName: 'Test User 1', mobilePhone: '+10011231234', id: '1', password: "$2b$08$XkLRdLvtYINUoZ5mCgfiyuhq8URU4kkwwCglCq0QzrYQs8cxgWiW.", createdAt: new Date(), updatedAt: new Date() },
       { displayName: 'Test User 2', mobilePhone: '+10021231234', email: 'test@example.com', id: '2', password: "$2b$08$XkLRdLvtYINUoZ5mCgfiyuhq8URU4kkwwCglCq0QzrYQs8cxgWiW.", createdAt: new Date(), updatedAt: new Date() },
-      { displayName: 'Test User 3', mobilePhone: '+10031231234', id: '3', password: "$2b$08$XkLRdLvtYINUoZ5mCgfiyuhq8URU4kkwwCglCq0QzrYQs8cxgWiW.", createdAt: new Date(), updatedAt: new Date() },
+      { displayName: 'Test User 3', mobilePhone: '+10031231234', id: '3', password: "$2b$08$15Ekf43HNTXzHZdRWFClGOLGp2bN4Yxatib2uCtZaVoKoHcbtnwGu", createdAt: new Date(), updatedAt: new Date() },
     ];
 
     try {

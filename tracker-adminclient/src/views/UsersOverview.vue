@@ -15,7 +15,7 @@
         <ion-grid  style="margin-top: 2em;">
           <ion-row style="font-weight: bold" class='ion-align-items-center'>
             <ion-col size="3">Name</ion-col>
-            <ion-col size="3">Activities</ion-col>
+            <ion-col size="3">Programs</ion-col>
             <ion-col size="3">Status</ion-col>
             <ion-col size="3">&nbsp;</ion-col>
           </ion-row>

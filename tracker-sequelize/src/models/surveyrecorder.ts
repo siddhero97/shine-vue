@@ -4,7 +4,7 @@
 
 import { sequelize } from "@shared/constants";
 import logger from "@shared/Logger";
-import { Category, Question, SurveyQuestion, SurveySection } from ".";
+import { Category, Question, SurveyQuestion, SurveySection, Survey } from ".";
 import { QuestionValidationError } from "@models/question";
 
 /**
@@ -143,6 +143,7 @@ export class PersistError extends Error {
         await this.initValidation();
         this.validateSections();
         await this.validateAnswers();
+        await this.changeStatus();
     }
 
     /**
@@ -332,4 +333,22 @@ export class PersistError extends Error {
 
         return this;
     }
+
+
+    /**
+     * Change status of the survey submission.
+     * @throws JsonValidationError if validation fails.
+     */
+    private async changeStatus() {
+        // Find survey by surveyId and update status to 2
+        const survey = await Survey.findByPk(this.surveyId);
+        if (survey == null) {
+            logger.warn(`Survey ${this.surveyId} not found.`);
+            throw new JsonValidationError;
+        }
+        survey.status = 2;
+        await survey.save();
+        
+    }
+
 }

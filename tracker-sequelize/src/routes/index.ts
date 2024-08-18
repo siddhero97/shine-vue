@@ -8,7 +8,7 @@ import QuestionsRouter from './Questions'
 import CategoriesRouter from './Categories'
 import { authenticateToken, requireAdminAccess, requireSurveyAccess } from '@shared/functions';
 import SessionRouter from './SessionRouter';
-
+import ChartRouter from './ChartRouter';
 // Init router and path
 const router = Router();
 
@@ -16,6 +16,10 @@ const router = Router();
 router.use('/surveyaccess', SurveyAccessRouter);
 // TODO: write router for login/logut session management.
 router.use('/session', SessionRouter);
+router.use('/charts', 
+    // requireAdminAccess, 
+    ChartRouter);
+
 
 // All routers below this line require an authentication token.
 router.use('*', authenticateToken);

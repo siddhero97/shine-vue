@@ -20,15 +20,17 @@
           <ion-row>
             <ion-col>
               <ion-button class="ion-text-start" @click="goToAsync('UsersOverview')">
-                People
+                Users
               </ion-button>
+              <p>Manage your Users.</p>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <ion-button class="ion-text-start" @click="goToAsync('CategoriesOverview')">
-                Projects
+                Programs
               </ion-button>
+              <p>Add, remove, and edit youth programs.</p>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -36,6 +38,7 @@
               <ion-button class="ion-text-start" @click="goToAsync('QuestionsOverview')">
                 Questions
               </ion-button>
+              <p>Add, remove, and edit survey questions.</p>
             </ion-col>
           </ion-row>
         </ion-grid>

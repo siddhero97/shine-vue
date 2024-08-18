@@ -5,10 +5,10 @@
         Home
       </ion-button>
       <ion-button @click="goToAsync('UsersOverview')">
-        People
+        Users
       </ion-button>
       <ion-button @click="goToAsync('CategoriesOverview')">
-        Projects
+        Programs
       </ion-button>
       <ion-button @click="goToAsync('QuestionsOverview')">
         Questions
